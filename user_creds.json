@@ -1,0 +1,5 @@
+[
+	{"username":"CERTIFIER","password":"passw0rd","role":"CERTIFIER"},
+	{"username":"SUPPLIER1","password":"passw0rd","role":"FISHCO"},
+	{"username":"SUPPLIER2","password":"passw0rd","role":"FISHCO"}
+]
