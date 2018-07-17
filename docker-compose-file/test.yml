@@ -1,0 +1,33 @@
+# This is the default base file to config env and command
+# Notice that chaincode is executed inside docker in default net mode
+# https://github.com/yeasy/docker-compose-files
+
+# Depends on the hyperledger/fabric-peer image
+
+# This utilizes the noops as consensus
+# See https://github.com/hyperledger/fabric/blob/master/docs/dev-setup/devnet-setup.md#using-consensus-plugin for more details.
+
+version: '2'
+
+services:
+  supplychainserver:
+    image: supplychainserver:commit
+    restart: unless-stopped
+    environment:
+      - CORE_LOGGING_LEVEL=info  #critical, error, warning, notice, info, debug
+
+    expose:
+      - "8080"
+      - "7050"
+      - "7051"
+      - "7052"
+      - "7053"
+
+    ports:
+      - "8080:8080"
+      - "127.0.0.1:7050:7050"
+
+    volumes: # docker.sock is mapped as the default CORE_VM_ENDPOINT
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: node local-plane-tracking/app.js  # this repeats the default cmd to make sure
+  # command: sh -c "sleep 5; peer node start"  # peer node should have booting delay with CA
